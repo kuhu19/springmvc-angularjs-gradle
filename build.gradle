@@ -1,0 +1,51 @@
+apply plugin: 'java'
+apply plugin: 'eclipse' 
+apply plugin: 'war'
+apply plugin: 'jetty'
+
+// JDK 8
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+//exclude common logging
+configurations.all {
+   exclude group: "commons-logging", module: "commons-logging"
+}
+
+dependencies {
+	compile 'javax.servlet:javax.servlet-api:3.1.0'
+	compile 'org.springframework:spring-webmvc:4.2.5.RELEASE'
+	compile 'org.springframework:spring-core:4.2.5.RELEASE'
+	compile 'org.springframework:spring-context:4.2.5.RELEASE'
+	compile 'org.springframework:spring-web:4.2.5.RELEASE'
+	compile 'org.springframework.security:spring-security-core:4.1.0.RELEASE'
+	compile 'org.springframework.security:spring-security-config:4.1.0.RELEASE'
+	compile 'org.springframework.security:spring-security-web:4.1.0.RELEASE'
+	compile 'javax.servlet.jsp:jsp-api:2.2'
+	compile 'org.springframework.data:spring-data-mongodb:1.2.0.RELEASE'
+	compile 'org.slf4j:jcl-over-slf4j:1.7.21'
+	compile 'ch.qos.logback:logback-classic:1.1.7'
+	compile 'com.fasterxml.jackson.core:jackson-databind:2.7.4'
+	compile 'com.fasterxml.jackson.core:jackson-core:2.7.4'
+	compile 'com.fasterxml.jackson.core:jackson-annotations:2.7.4'
+	compile 'com.jcraft:jsch:0.1.53'
+	runtime 'javax.servlet:jstl:1.2'
+}
+
+jettyRun{
+	contextPath = "test"
+	httpPort = 8080
+}
+
+jettyRunWar{
+	contextPath = "test"
+	httpPort = 8080
+}
+
+//Defining stop ports for jetty
+stopPort = 9080
+stopKey = "stopKey"
